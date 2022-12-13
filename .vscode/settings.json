@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "multiboot.h": "c",
+        "stdint.h": "c",
+        "boot_info.h": "c",
+        "stdbool.h": "c",
+        "gdt.h": "c",
+        "isr.h": "c",
+        "mouse.h": "c",
+        "idt.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c"
+    }
+}
