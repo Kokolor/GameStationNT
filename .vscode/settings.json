@@ -10,6 +10,11 @@
         "idt.h": "c",
         "array": "c",
         "string_view": "c",
-        "initializer_list": "c"
+        "initializer_list": "c",
+        "tasking.h": "c",
+        "input.h": "c",
+        "random": "cpp",
+        "button.h": "c",
+        "desktop.h": "c"
     }
 }

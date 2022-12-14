@@ -29,6 +29,9 @@ typedef struct {
     uint8_t y_overflow: 1;
 } mouse_status;
 
+extern mouse_status g_status;
+extern int mouse_possessed_task_id;
+
 void init_mouse();
 
 int mouse_get_x();

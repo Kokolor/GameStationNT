@@ -39,6 +39,24 @@ void flush() {
     memcpy(mb_info->framebuffer_addr, mb_info->framebuffer_addr + mb_info->framebuffer_height * mb_info->framebuffer_pitch, mb_info->framebuffer_pitch * mb_info->framebuffer_height);
 }
 
+void put_circle(int x, int y, int radius, int r, int g, int b)
+{
+    int x_coordinate = x - radius;
+    int y_coordinate = y - radius;
+
+    for(int i = x_coordinate; i <= x + radius; i++)
+    {
+        for(int j = y_coordinate; j <= y + radius; j++)
+        {
+            int distance = (i - x)*(i - x) + (j - y)*(j - y);
+            if(distance <= radius * radius)
+            {
+                put_pixel(i, j, r, g, b);
+            }
+        }
+    }
+}
+
 void put_character(char character, int x, int y, int r, int g, int b) {
     uint8_t* offset = font + sizeof(font_header_t) + 16 * character;
 

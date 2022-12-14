@@ -26,6 +26,7 @@ uint8_t mouse_pointer[] = {
 int mouse_x = 0, mouse_y = 0;
 int mouse_x_old = 0, mouse_y_old = 0;
 mouse_status g_status;
+int mouse_possessed_task_id = 0;
 
 int mouse_get_x() {
     return mouse_x;
