@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "common.h"
 
 #define NULL_POINTER ((void*)0)
 #define DYNAMIC_MEM_TOTAL_SIZE 4*1024
@@ -146,4 +147,36 @@ void free(void *p) {
 
     current_mem_node = merge_current_node_into_current(current_mem_node);
     merge_current_node_into_previous(current_mem_node);
+}
+
+static inline void io_wait(void) {
+    outportb(0x80, 0);
+}
+
+void delay(uint16_t ms) {
+    for(long long int i = 0; i < 5000 * (uint16_t)ms / 2; i++)
+        io_wait();
+}
+
+
+void init_pic(void) {
+	uint8_t A1, A2;
+
+    A1 = inportb(PIC1_DATA);
+    A2 = inportb(PIC2_DATA);
+
+    outportb(PIC1_COMMAND, ICW1);
+    outportb(PIC2_COMMAND, ICW1);
+
+    outportb(PIC1_DATA, 0x20);
+    outportb(PIC2_DATA, 0x28);
+
+    outportb(PIC1_DATA, 4);
+    outportb(PIC2_DATA, 2);
+
+    outportb(PIC1_DATA, ICW4_8086);
+    outportb(PIC2_DATA, ICW4_8086);
+
+    outportb(PIC1_DATA, A1);
+    outportb(PIC2_DATA, A2);
 }

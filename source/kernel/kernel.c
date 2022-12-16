@@ -11,13 +11,9 @@ void _start(multiboot_info_t* mboot_info){
     mb_info = mboot_info;
     init_gdt();
     init_idt();
-    init_isr();
-    init_irq();
-    init_pic();
 
     init_dynamic_mem();
 
-    init_timer();
     init_keyboard();
     init_mouse();
 

@@ -1,5 +1,7 @@
-global load_idt
-extern kernel_idt_pointer
+section .text
+    global load_idt
+
 load_idt:
-    lidt [kernel_idt_pointer]
+    mov eax, [esp + 4]
+    lidt [eax]
     ret

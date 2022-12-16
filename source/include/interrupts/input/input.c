@@ -121,6 +121,7 @@ void mouse_handler(registers *r) {
             mouse_cycle = 0;
             break;
     }
+    isr_end_interrupt(IRQ_BASE + 12);
 }
 
 
@@ -178,7 +179,7 @@ void init_mouse() {
         return;
     }
 
-    irq_install_handler(12, mouse_handler);
+    isr_register_interrupt_handler(IRQ_BASE + 12, mouse_handler);
 }
 
 static char key_buffer[256];
@@ -239,5 +240,5 @@ void keyboard_handler(struct registers *r) {
 }
 
 void init_keyboard() {
-	irq_install_handler(1, keyboard_handler);
+	isr_register_interrupt_handler(IRQ_BASE + 1, keyboard_handler);
 }
