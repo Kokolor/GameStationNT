@@ -30,7 +30,7 @@ int clear_screen_task(int task_id) {
 }
 
 int draw_mouse_task(int task_id) {
-    put_rect(mouse_x, mouse_y, 3, 3, 255, 255, 255);
+    draw_mouse(mouse_x, mouse_y, 255, 255, 255);
 
     return 0;
 }

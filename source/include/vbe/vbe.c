@@ -76,3 +76,26 @@ void put_string(char* string, int x, int y, int r, int g, int b) {
         put_character(string[i], x + 8 * i, y, r, g, b);
     }
 }
+
+void draw_mouse(int x, int y, int r, int g, int b) {
+    const uint8_t mouse[8][8] = {
+        {0, 2, 2, 2, 2, 2, 2, 0}, 
+        {2, 1, 1, 1, 1, 1, 1, 2}, 
+        {2, 1, 1, 1, 1, 1, 1, 2}, 
+        {2, 1, 1, 1, 1, 1, 2, 0}, 
+        {2, 1, 1, 1, 1, 2, 0, 0}, 
+        {2, 1, 1, 1, 2, 0, 0, 0}, 
+        {2, 1, 1, 2, 0, 0, 0, 0}, 
+        {0, 2, 2, 0, 0, 0, 0, 0},
+    };
+
+    for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < 8; i++) {
+            if (mouse[j][i] == 2) {
+                put_pixel(x + i, y + j, 0, 0, 0);
+            } else if (mouse[j][i] == 1) {
+                put_pixel(x + i, y + j, r, g, b);
+            }
+        }
+    }
+}
