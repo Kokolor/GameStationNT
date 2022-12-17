@@ -19,7 +19,7 @@ int draw_close_button(int x, int y, int radius, int r, int g, int b, int task_id
     return 0;
 }
 
-int draw_window(int* x, int* y, int* width, int* height, int r, int g, int b, int* mouse_held, int task_id) {
+int draw_window(int* x, int* y, int* width, int* height, int* mouse_held, int task_id) {
     if (g_status.left_button == FALSE) {
         *mouse_held = FALSE;
     }
@@ -41,8 +41,8 @@ int draw_window(int* x, int* y, int* width, int* height, int r, int g, int b, in
             * y = mouse_y - 10;
     }
 
-    put_rect(* x, * y, * width, 20, 0, 43, 63);
-    put_rect(* x, * y + 20, *width, * height, r, g, b);
+    put_rect(* x, * y, * width, 20, 25, 25, 25);
+    put_rect(* x, * y + 20, *width, * height, 40, 40, 40);
 
     return draw_close_button(* x + * width - 10, * y + 10, 8, 16, 0, 0, task_id);
 }

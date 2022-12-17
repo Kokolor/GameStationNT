@@ -8,6 +8,6 @@
 #include <include/interrupts/input/input.h>
 #include <include/vbe/vbe.h>
 
-int draw_button(int x, int y, int width, int height, int r, int g, int b, char* text, int r1, int g1, int b1, int task_id);
+int draw_button(int x, int y, int width, int height, char* text, int task_id);
 
 #endif

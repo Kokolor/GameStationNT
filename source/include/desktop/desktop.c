@@ -3,11 +3,29 @@
 #include <stdbool.h>
 #include "desktop.h"
 
-int boot_state = 0;
-
 int clear_screen_task(int task_id) {
-    clear_screen(0, 54, 66);
-    
+    int x1 = 0;
+    int y1 = 0;
+    int x2 = 800;
+    int y2 = 600;
+
+    int deltaR = 255 - 0;
+    int deltaG = 255 - 0;
+    int deltaB = 255 - 0;
+
+    int deltaX = x2 - x1;
+    int deltaY = y2 - y1;
+
+    for (int x = x1; x < x2; x++) {
+        for (int y = y1; y < y2; y++) {
+            int r = (x - x1) * deltaR / deltaX;
+            int g = (y - y1) * deltaG / deltaY;
+            int b = (x + y - x1 - y1) * deltaB / (deltaX + deltaY);
+
+            put_pixel(x, y, r, g, b);
+        }
+    }
+
     return 0;
 }
 
@@ -18,18 +36,11 @@ int draw_mouse_task(int task_id) {
 }
 
 int test(int task_id) {
-    int* r = &iparams[task_id * task_params_length + 4];
-    int* g = &iparams[task_id * task_params_length + 5];
-    int* b = &iparams[task_id * task_params_length + 6];
-
     int close_clicked = draw_window(
         &iparams[task_id * task_params_length + 0],
         &iparams[task_id * task_params_length + 1],
         &iparams[task_id * task_params_length + 2],
         &iparams[task_id * task_params_length + 3],
-        *r = 0,
-        *g = 50,
-        *b = 61,
         &iparams[task_id * task_params_length + 9],
         task_id);
 
@@ -40,33 +51,14 @@ int test(int task_id) {
 
     if(close_clicked == TRUE)
         close_task(task_id);
-
-    char text[] = "Dark\0";
-    char text1[] = "Light\0";
-
-    if (draw_button(x + 20, y + 20, 50, 20, 0, 32, 0,
-            text, 16, 32, 16, task_id
-    ) == TRUE) {
-        *r = 0;
-        *g = 50;
-        *b = 61;
-    }
-
-    if (draw_button(x + 100, y + 20, 50, 20, 0, 32, 0,
-            text1, 16, 32, 16, task_id
-    ) == TRUE) {
-        *r = 255;
-        *g = 255;
-        *b = 255;
-    }
 }
 
 int taskbar_task(int task_id) {
-    put_rect(0, 0, 800, 40, 0, 43, 63);
+    put_rect(0, 0, 800, 40, 50, 50, 50);
 
     int i = iparams[task_id * task_params_length + 4];
 
-    if (draw_button(0, 0, 40, 40, 0, 10, 16, "test", 16, 32, 16, task_id) == TRUE) {
+    if (draw_button(0, 0, 40, 40, "test", task_id) == TRUE) {
         tasks[tasks_length].priority = 0;
         tasks[tasks_length].task_id = tasks_length;
         tasks[tasks_length].function = &test;
@@ -81,7 +73,7 @@ int taskbar_task(int task_id) {
         iparams[task_id * task_params_length + 4]++;
     }
 
-    if (draw_button(50, 0, 50, 40, 16, 10, 0, "pong", 16, 32, 16, task_id) == TRUE) {
+    if (draw_button(50, 0, 50, 40, "pong", task_id) == TRUE) {
         tasks[tasks_length].priority = 0;
         tasks[tasks_length].task_id = tasks_length;
         tasks[tasks_length].function = &pong_task;
@@ -104,9 +96,6 @@ int pong_task(int task_id) {
         &iparams[task_id * task_params_length + 1],
         &iparams[task_id * task_params_length + 2],
         &iparams[task_id * task_params_length + 3],
-        255,
-        255,
-        255,
         &iparams[task_id * task_params_length + 9],
         task_id);
 
@@ -131,20 +120,4 @@ int pong_task(int task_id) {
         iparams[task_id * task_params_length + 8] = -iparams[task_id * task_params_length + 8];
 
     put_circle(x + iparams[task_id * task_params_length + 5], y + iparams[task_id * task_params_length + 6], 5, 0, 0, 0);
-}
-
-int bootscreen_task(int task_id) {
-    put_rect(100, 450, 600, 15, 255, 255, 255);
-    put_rect(101, 451, 598, 13, 0, 0, 0);
-    if (boot_state == 1) {
-        put_rect(101, 451, 198, 13, 255, 255, 255);
-    } else if (boot_state == 2) {
-        put_rect(101, 451, 298, 13, 255, 255, 255);
-    } else if (boot_state == 3) {
-        put_rect(101, 451, 398, 13, 255, 255, 255);
-    } else if (boot_state == 4) {
-        put_rect(101, 451, 498, 13, 255, 255, 255);
-    } else if (boot_state == 5) {
-        put_rect(101, 451, 598, 13, 255, 255, 255);
-    }
 }

@@ -9,6 +9,6 @@
 #include <include/vbe/vbe.h>
 
 int draw_close_button(int x, int y, int radius, int r, int g, int b, int task_id);
-int draw_window(int* x, int* y, int* width, int* height, int r, int g, int b, int* mouse_held, int task_id);
+int draw_window(int* x, int* y, int* width, int* height, int* mouse_held, int task_id);
 
 #endif
