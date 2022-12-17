@@ -80,12 +80,12 @@ void put_string(char* string, int x, int y, int r, int g, int b) {
 void draw_mouse(int x, int y, int r, int g, int b) {
     const uint8_t mouse[8][8] = {
         {0, 2, 2, 2, 2, 2, 2, 0}, 
-        {2, 1, 1, 1, 1, 1, 1, 2}, 
-        {2, 1, 1, 1, 1, 1, 1, 2}, 
-        {2, 1, 1, 1, 1, 1, 2, 0}, 
-        {2, 1, 1, 1, 1, 2, 0, 0}, 
-        {2, 1, 1, 1, 2, 0, 0, 0}, 
-        {2, 1, 1, 2, 0, 0, 0, 0}, 
+        {2, 1, 7, 6, 5, 4, 3, 2}, 
+        {2, 7, 7, 6, 5, 4, 3, 2}, 
+        {2, 6, 6, 5, 4, 3, 2, 0}, 
+        {2, 5, 5, 4, 3, 2, 0, 0}, 
+        {2, 4, 4, 3, 2, 0, 0, 0}, 
+        {2, 3, 3, 2, 0, 0, 0, 0}, 
         {0, 2, 2, 0, 0, 0, 0, 0},
     };
 
@@ -93,6 +93,16 @@ void draw_mouse(int x, int y, int r, int g, int b) {
         for (int i = 0; i < 8; i++) {
             if (mouse[j][i] == 2) {
                 put_pixel(x + i, y + j, 0, 0, 0);
+            } else if (mouse[j][i] == 3){
+                put_pixel(x + i, y + j, 50, 50, 50);
+            } else if (mouse[j][i] == 4){
+                put_pixel(x + i, y + j, 75, 75, 75);
+            } else if (mouse[j][i] == 5){
+                put_pixel(x + i, y + j, 110, 110, 110);
+            } else if (mouse[j][i] == 6){
+                put_pixel(x + i, y + j, 150, 150, 150);
+            } else if (mouse[j][i] == 7){
+                put_pixel(x + i, y + j, 200, 200, 20);
             } else if (mouse[j][i] == 1) {
                 put_pixel(x + i, y + j, r, g, b);
             }
